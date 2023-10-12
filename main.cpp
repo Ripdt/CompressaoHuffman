@@ -43,6 +43,13 @@ struct No {
   bool operator<(const No& b) {
     return frequencia < b.frequencia;
   }
+
+  static void liberar(No* raiz) {
+    if (raiz == nullptr) return;
+    liberar(raiz->esq);
+    liberar(raiz->dir);
+    delete raiz;
+  }
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -153,6 +160,8 @@ void lerInformacoesDoArquivo(const string& nomeArquivo) {
   cout << "\n\nConteudo descomprimido:{\n";
   conteudoDescomprimido.imprimir(cout);
   cout << "}\n\n";
+
+  No::liberar(raiz);
 
   arquivo.close();
 }
